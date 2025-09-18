@@ -1,0 +1,3 @@
+[submodule "core/duktape"]
+	path = core/duktape
+	url = https://github.com/svaarala/duktape.git
