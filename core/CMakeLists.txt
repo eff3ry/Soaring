@@ -4,7 +4,6 @@ project(soaring LANGUAGES CXX C)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-
 # Add Duktape
 add_subdirectory(duktape)
 
@@ -18,6 +17,10 @@ add_library(js_core
     src/host_api.cpp
 )
 target_include_directories(js_core PUBLIC src duktape)
+
+# Add CURL
+find_package(CURL REQUIRED)
+target_link_libraries(js_core PRIVATE CURL::libcurl)
 
 # Unit test executable
 enable_testing()

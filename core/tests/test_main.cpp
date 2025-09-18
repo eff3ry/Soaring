@@ -26,3 +26,10 @@ TEST_CASE("File read/write via JS", "[js][file]") {
     // Clean up
     std::remove(testPath.c_str());
 }
+
+TEST_CASE("Fetch HTTP", "[js][fetch]") {
+    Core core;
+    std::string result = core.eval_js("fetch('https://httpbin.org/get')");
+    // Should contain JSON with url key
+    REQUIRE(result.find("\"url\":") != std::string::npos);
+}
