@@ -1,14 +1,28 @@
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch_test_macros.hpp>
 #include "core.h"
+#include <fstream>
 
 TEST_CASE("JS evaluation works", "[js]") {
     Core core;
     REQUIRE(core.eval_js("2 + 2") == "4");
     REQUIRE(core.eval_js("'hello' + ' world'") == "hello world");
+    REQUIRE(core.eval_js("typeof log") == "function");
 }
 
-TEST_CASE("Native log is available", "[host_api]") {
+TEST_CASE("File read/write via JS", "[js][file]") {
     Core core;
-    REQUIRE(core.eval_js("typeof log") == "function");
+    std::string testPath = "testfile.txt";
+
+    // Clean up any old file
+    std::remove(testPath.c_str());
+
+    // Write file from JS
+    REQUIRE(core.eval_js("writeFile('testfile.txt', 'hello from js')") == "OK");
+
+    // Read file from JS
+    REQUIRE(core.eval_js("readFile('testfile.txt')") == "hello from js");
+
+    // Clean up
+    std::remove(testPath.c_str());
 }
