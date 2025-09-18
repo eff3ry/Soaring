@@ -1,6 +1,3 @@
-[submodule "core/duktape"]
-	path = core/duktape
-	url = https://github.com/svaarala/duktape.git
 [submodule "core/external/catch2"]
 	path = core/external/catch2
 	url = https://github.com/catchorg/Catch2.git
